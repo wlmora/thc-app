@@ -16,6 +16,7 @@ import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
 import VueMacros from 'unplugin-vue-macros/vite'
+import vuetify from 'vite-plugin-vuetify'
 
 export default defineConfig({
   resolve: {
@@ -103,8 +104,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'safari-pinned-tab.svg'],
       manifest: {
-        name: 'Vitesse',
-        short_name: 'Vitesse',
+        name: 'The Hospitality Center',
+        short_name: 'Thc',
         theme_color: '#ffffff',
         icons: [
           {
@@ -143,6 +144,11 @@ export default defineConfig({
     Inspector({
       toggleButtonVisibility: 'never',
     }),
+
+    // https://github.com/vuetifyjs/vuetify
+    vuetify({
+      autoImport: true,
+    }),
   ],
 
   // https://github.com/vitest-dev/vitest
@@ -163,6 +169,6 @@ export default defineConfig({
 
   ssr: {
     // TODO: workaround until they support native ESM
-    noExternal: ['workbox-window', /vue-i18n/],
+    noExternal: ['workbox-window', /vue-i18n/, 'vuetify'],
   },
 })

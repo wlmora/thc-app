@@ -1,10 +1,18 @@
-button:
-  about: About
+index:
+  button:
+    about: About Us
+    back: Back
+    go: GO
+    home: Home
+    toggle_dark: Toggle dark mode
+    toggle_light: Toggle light mode
+    toggle_langs: Change language
+about:
+  title: About Us
+  text1: At 
+  text2: we are experts in Executive Hospitality Recruitment and Event-Conference staffing services. Visit our official
+  webpage: website
   back: Back
-  go: GO
-  home: Home
-  toggle_dark: Toggle dark mode
-  toggle_langs: Change languages
 intro:
   desc: Opinionated Vite Starter Template
   dynamic-route: Demo of dynamic route

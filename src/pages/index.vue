@@ -1,56 +1,94 @@
-<script setup lang="ts">
-defineOptions({
-  name: 'IndexPage',
-})
-const user = useUserStore()
-const name = $ref(user.savedName)
+<script>
+export default {
+  setup() {
+    const logo = '../'
+  },
+  data: () => ({
+    valid: true,
+    name: '',
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    ],
+    email: '',
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+    ],
+    select: null,
+  }),
 
-const router = useRouter()
-const go = () => {
-  if (name)
-    router.push(`/hi/${encodeURIComponent(name)}`)
+  methods: {
+    async validate() {
+      const { valid } = await this.$refs.form.validate()
+
+      if (valid)
+        alert('Form is valid')
+    },
+    reset() {
+      this.$refs.form.reset()
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation()
+    },
+  },
 }
-
-const { t } = useI18n()
 </script>
 
 <template>
-  <div>
-    <div text-4xl>
-      <div i-carbon-campsite inline-block />
-    </div>
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
-        Vitesse
-      </a>
-    </p>
-    <p>
-      <em text-sm opacity-75>{{ t('intro.desc') }}</em>
-    </p>
+  <v-responsive class="mx-auto" max-width="344">
+    <v-container class="text-xs-center">
+      <v-img src="https://picsum.photos/id/11/500/300" class="my-3" contain height="100" />
 
-    <div py-4 />
-
-    <TheInput
-      v-model="name"
-      placeholder="What's your name?"
-      autocomplete="false"
-      @keydown.enter="go"
-    />
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
-    <div>
-      <button
-        btn m-3 text-sm
-        :disabled="!name"
-        @click="go"
+      <v-container class="text-xs-center">
+        <p class="text-uppercase text-h4">
+          THE
+          HOSPITALITY
+          CENTER
+        </p>
+      </v-container>
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
       >
-        {{ t('button.go') }}
-      </button>
-    </div>
-  </div>
-</template>
+        <v-text-field
+          v-model="name"
+          :counter="10"
+          :rules="nameRules"
+          label="Name"
+          required
+        />
 
-<route lang="yaml">
-meta:
-  layout: home
-</route>
+        <v-text-field
+          v-model="email"
+          :rules="emailRules"
+          label="E-mail"
+          required
+        />
+        <v-btn
+          color="success"
+          class="mr-4"
+          @click="validate"
+        >
+          Validate
+        </v-btn>
+
+        <v-btn
+          color="error"
+          class="mr-4"
+          @click="reset"
+        >
+          Reset Form
+        </v-btn>
+
+        <v-btn
+          color="warning"
+          @click="resetValidation"
+        >
+          Reset Validation
+        </v-btn>
+      </v-form>
+    </v-container>
+  </v-responsive>
+</template>

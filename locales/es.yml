@@ -1,10 +1,18 @@
-button:
-  about: Acerca de
-  back: Atrás
-  go: Ir
-  home: Inicio
-  toggle_dark: Alternar modo oscuro
-  toggle_langs: Cambiar idiomas
+index:
+  button:
+    about: Sobre nosotros
+    back: Atrás
+    go: Ir
+    home: Inicio
+    toggle_dark: Alternar modo oscuro
+    toggle_light: Alternar modo claro
+    toggle_langs: Cambiar idioma
+about:
+  title: Sobre nosotros
+  text1: En
+  text2: somos expertos en reclutamiento de ejecutivos de hospitalidad y servicios de personal para eventos y conferencias. Visita nuestra página
+  webpage: Oficial
+  back: Regresar
 intro:
   desc: Plantilla de Inicio de Vite Dogmática
   dynamic-route: Demo de ruta dinámica

@@ -1,33 +1,56 @@
 <script setup lang="ts">
-const { t, availableLocales, locale } = useI18n()
-
+/* const { t, availableLocales, locale } = useI18n()
 const toggleLocales = () => {
-  // change to some real logic
   const locales = availableLocales
   locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+}
+const themeStore = useThemeStore()
+let themes = $ref(themeStore.savedTheme)
+const toggleTheme = () => {
+  themes = themes === 'lightTheme' ? 'darkTheme' : 'lightTheme'
+  themeStore.setNewTheme(themes)
+}
+
+const dialog = ref(false) */
+const { t, availableLocales, locale } = useI18n()
+const toggleLocales = () => {
+  const locales = availableLocales
+  locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+}
+const themeStore = useThemeStore()
+const themes = $ref(themeStore.savedTheme)
+const toggleTheme = () => {
+  themes = themes === 'lightTheme' ? 'darkTheme' : 'lightTheme'
+  themeStore.setNewTheme(themes)
 }
 </script>
 
 <template>
-  <nav text-xl mt-6>
-    <RouterLink class="icon-btn mx-2" to="/" :title="t('button.home')">
-      <div i-carbon-campsite />
-    </RouterLink>
-
-    <button class="icon-btn mx-2 !outline-none" :title="t('button.toggle_dark')" @click="toggleDark()">
-      <div i="carbon-sun dark:carbon-moon" />
-    </button>
-
-    <a class="icon-btn mx-2" :title="t('button.toggle_langs')" @click="toggleLocales()">
-      <div i-carbon-language />
-    </a>
-
-    <RouterLink class="icon-btn mx-2" to="/about" :title="t('button.about')">
-      <div i-carbon-dicom-overlay />
-    </RouterLink>
-
-    <a class="icon-btn mx-2" rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank" title="GitHub">
-      <div i-carbon-logo-github />
-    </a>
-  </nav>
+  <v-footer class="text-center d-flex flex-column">
+    <v-container class="text-xs-center">
+      <v-btn icon="mdi-translate-variant" :title="t('index.button.toggle_langs')" @click="toggleLocales()" />
+      <v-btn
+        size="small"
+        :icon="themes === 'lightTheme' ? 'mdi-white-balance-sunny' : 'mdi-weather-night'"
+        :title="themes === 'lightTheme' ? t('index.button.toggle_dark') : t('index.button.toggle_light')"
+        @click="toggleTheme()"
+      />
+      <v-btn
+        icon="mdi-information-outline" :title="t('index.button.about')" @click="$router.push({ path: '/about' })"
+      />
+    </v-container>
+  </v-footer>
 </template>
+
+<style scoped>
+  .v-btn--variant-elevated {
+    box-shadow: none !important;
+    background: none;
+  }
+  .v-footer, .v-container{
+    padding-top: 8px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+  }
+</style>
